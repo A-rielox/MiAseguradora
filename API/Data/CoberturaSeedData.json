@@ -1,0 +1,18 @@
+[
+  {
+    "Descripcion": "daños materiales",
+    "Monto": 350000
+  },
+  {
+    "Descripcion": "responsabilidad civil",
+    "Monto": 1000000
+  },
+  {
+    "Descripcion": "cristales",
+    "Monto": 70000
+  },
+  {
+    "Descripcion": "robos",
+    "Monto": 250000
+  }
+]

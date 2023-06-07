@@ -39,6 +39,7 @@ public class DataContext : DbContext
 		modelBuilder.Entity<Poliza>()
 			.Property(u => u.Modelo).IsRequired();
 
+
 		modelBuilder.Entity<Cobertura>()
 			.Property(c => c.Descripcion).IsRequired();
 

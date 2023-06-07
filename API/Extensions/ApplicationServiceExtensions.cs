@@ -23,6 +23,8 @@ public static class ApplicationServiceExtensions
 
 		services.AddScoped<ITokenService, TokenService>();
 		services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+		services.AddScoped<ICoberturaRepository, CoberturaRepository>();
+		services.AddScoped<IPolizaRepository, PolizaRepository>();
 		services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 		services.AddScoped<LogUserActivity>();

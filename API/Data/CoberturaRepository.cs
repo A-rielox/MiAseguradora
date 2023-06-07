@@ -1,0 +1,68 @@
+﻿using API.Entities;
+using API.Interfaces;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+
+namespace API.Data;
+
+public class CoberturaRepository : ICoberturaRepository
+{
+	private readonly DataContext _context;
+
+	public CoberturaRepository(DataContext context)
+	{
+		_context = context;
+	}
+
+
+
+	/////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////
+	public void AddCobertura(Cobertura cobertura)
+	{
+		_context.Add(cobertura);
+	}
+
+
+	/////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////
+	public void Update(Cobertura cobertura)
+	{
+		_context.Entry(cobertura).State = EntityState.Modified;
+	}
+
+
+	/////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////
+	public void DeleteCobertura(Cobertura cobertura)
+	{
+		_context.Coberturas.Remove(cobertura);
+	}
+
+
+	/////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////
+	public async Task<Cobertura> GetCoberturaByIdAsync(int id)
+	{
+		return await _context.Coberturas.FindAsync(id);
+	}
+
+
+	/////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////
+	public async Task<IEnumerable<Cobertura>> GetCoberturasAsync()
+	{
+		return await _context.Coberturas
+							 .OrderBy(c => c.Monto)
+							 .ToListAsync();
+	}
+
+
+	/////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////
+	public async Task<bool> SaveAllAsync()
+	{
+		return await _context.SaveChangesAsync() > 0;
+	}
+	
+}

@@ -9,7 +9,8 @@ public interface IPolizaRepository
 
 	Task<bool> DeletePoliza(Poliza poliza);
 
-	Task<PolizaDto> Update(Poliza poliza, PolizaUpdateDto polizaUpdateDto);
+	//Task<PolizaDto> Update(Poliza poliza, PolizaUpdateDto polizaUpdateDto);
+	Task<PolizaDto> Update(Poliza poliza, PoCoUpdateDto poCoUpdateDto);
 
 
 	Task<Poliza> GetPolizaByIdAsync(int id);

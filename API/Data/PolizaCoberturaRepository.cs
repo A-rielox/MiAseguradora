@@ -33,7 +33,7 @@ public class PolizaCoberturaRepository : IPolizaCoberturaRepository
 
 	public async Task<bool> AddPolizaCobertura(PoCoCreateDto poCoCreateDto, int polizaId)
 	{
-		var cobsList = poCoCreateDto.CoberturasIdsList.ToList();
+		var cobsList = poCoCreateDto.CoberturasIdsList.ToList(); // esta de mas, ya es lista<int>
 
 		foreach (var cobId in cobsList)
 		{
@@ -57,18 +57,63 @@ public class PolizaCoberturaRepository : IPolizaCoberturaRepository
 
 	/////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////
-	public void DeletePolizaCobertura(PolizaCobertura polizaCobertura)
+	public async Task<bool> DeleteCoberturasForPoliza(int polizaId)
 	{
-		_context.PolizaCoberturas.Remove(polizaCobertura);
+		var coberturasForPolizaList = await _context.PolizaCoberturas
+										.Where(pc => pc.PolizaId == polizaId)
+										.ToListAsync();
+
+		// borrar viejas
+		foreach (var pc in coberturasForPolizaList)
+		{
+			_context.PolizaCoberturas.Remove(pc);
+		}
+
+		return await SaveAllAsync();
 	}
 
 
 	/////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////
-	public Task<IEnumerable<PolizaCobertura>> UpdateCoberturasForPoliza(int polizaId)
+	public async Task<bool> UpdateCoberturasForPoliza(PoCoUpdateDto poCoUpdateDto)
 	{
-		throw new NotImplementedException();
+		var coberturasForPolizaList = await _context.PolizaCoberturas
+										.Where(pc => pc.PolizaId == poCoUpdateDto.PolizaId)
+										.ToListAsync();
+
+		// borrar viejas
+		foreach (var pc in coberturasForPolizaList)
+		{
+			_context.PolizaCoberturas.Remove(pc);
+		}
+
+		// crear nuevas
+		foreach (var cobId in poCoUpdateDto.CoberturasIdsList)
+		{
+			var cob = await _cobsRepo.GetCoberturaByIdAsync(cobId);
+			var monto = Convert.ToInt32(cob.Monto + (cob.Monto *
+							 int.Parse(poCoUpdateDto.Vehiculo) * 0.001));
+
+			var poco = new PolizaCobertura
+			{
+				PolizaId = poCoUpdateDto.PolizaId,
+				CoberturaId = cobId,
+				Monto = monto,
+			};
+
+			_context.PolizaCoberturas.Add(poco);
+		}
+
+		return await SaveAllAsync();
 	}
+
+
+	/////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////
+	//public Task<IEnumerable<PolizaCobertura>> UpdateCoberturasForPoliza(int polizaId)
+	//{
+	//	throw new NotImplementedException();
+	//}
 
 
 	/////////////////////////////////////////////////////////////

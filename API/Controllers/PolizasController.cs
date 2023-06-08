@@ -28,22 +28,6 @@ public class PolizasController : BaseApiController
 	/////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////
 	// POST:  api/Polizas
-	//[HttpPost]
-	//public async Task<ActionResult<PolizaDto>> CreatePoliza(PolizaCreateDto polizaCreateDto)
-	//{
-	//	// viene marca vehiculo y modelo
-
-	//	var usuarioId = User.GetUserId();
-
-	//	var polizaDto = await _polizaRepo.AddPoliza(polizaCreateDto, usuarioId);
-
-	//	if (polizaDto != null) return Ok(polizaDto);
-
-	//	return BadRequest("No se pudo añadir la poliza.");
-	//}
-
-
-	// POST:  api/Polizas
 	[HttpPost]
 	public async Task<ActionResult<PolizaWithCobsDto>> CreatePolWithCobs(PoCoCreateDto poCoCreateDto)
 	{
@@ -71,16 +55,7 @@ public class PolizasController : BaseApiController
 		// trae la poliza con lista de coberturas
 		var poWithCos = await _polizaRepo.GetPoWithCoByIdAsync(polizaDto.PolizaId);
 		
-		// llena la lista de coberturasId en la anterior
-		var cobIds = new List<int>();
-
-		foreach (var item in poWithCos.CoberturaList)
-		{
-			cobIds.Add(item.CoberturaId);
-		}
-
 		var polizaWithCobsDto = _mapper.Map<PolizaWithCobsDto>(poWithCos);
-		polizaWithCobsDto.CoberturasIdList = cobIds;
 
 		return Ok(polizaWithCobsDto);
 	}
@@ -90,22 +65,30 @@ public class PolizasController : BaseApiController
 	/////////////////////////////////////////////////////////////
 	// PUT:   api/Polizas
 	[HttpPut]
-	public async Task<ActionResult> UpdatePoliza(PolizaUpdateDto polizaUpdateDto)
+	public async Task<ActionResult<PolizaWithCobsDto>> UpdatePoliza(PoCoUpdateDto poCoUpdateDto)
 	{
 		var usuarioId = User.GetUserId();
 
-		var poliza = await _polizaRepo.GetPolizaByIdAsync(polizaUpdateDto.PolizaId);
+		var poliza = await _polizaRepo.GetPolizaByIdAsync(poCoUpdateDto.PolizaId);
 
 		if (poliza == null) return NotFound("No existe la poliza que intentas editar.");
 
 		if (usuarioId != poliza.UsuarioId) return Unauthorized("Solo puedes editar tus polizas.");
 
-		var polizaDto = await _polizaRepo.Update(poliza, polizaUpdateDto);
+		await _polizaRepo.Update(poliza, poCoUpdateDto);
 
-		if (polizaDto != null) return NoContent();
+		// borrar todas las coberturas de esta poliza en PolizaCobertura
+		// si no hay cambios me va a mandar false
+		await _poCoRepo.UpdateCoberturasForPoliza(poCoUpdateDto);
+		// tb anhade los nuevos
 
-		return BadRequest("No se pudo actualizar la poliza.");
+		var poWithCos = await _polizaRepo.GetPoWithCoByIdAsync(poCoUpdateDto.PolizaId);
+
+		var polizaWithCobsDto = _mapper.Map<PolizaWithCobsDto>(poWithCos);
+
+		return Ok(polizaWithCobsDto);
 	}
+
 
 
 	/////////////////////////////////////////////////////////////
@@ -122,14 +105,21 @@ public class PolizasController : BaseApiController
 
 		if (usuarioId != poliza.UsuarioId) return Unauthorized("Solo puedes borrar tus polizas.");
 
-		var wasDeleted = await _polizaRepo.DeletePoliza(poliza);
+		// borra coberturas
+		var isCobsDeleted = await _poCoRepo.DeleteCoberturasForPoliza(id);
+		if (!isCobsDeleted) return BadRequest("No se pudo borrar la poliza.");
 
+
+		// borra poliza
+		var wasDeleted = await _polizaRepo.DeletePoliza(poliza);
 		if (wasDeleted) return NoContent();
 
-		return BadRequest("No se pudo borrar la poliza.");
+
+		// si se borro la poliza y no las cobs => revertir
+		return BadRequest("Problemas al borrar la poliza.");
 	}
 
-
+	
 	/////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////
 	// GET:  api/Polizas
@@ -140,7 +130,7 @@ public class PolizasController : BaseApiController
 
 	//	return Ok(polizasDto);
 	//}
-	
+
 	[HttpGet]
 	public async Task<ActionResult<IEnumerable<PolizaWithCobsDto>>> GetPolizas()
 	{

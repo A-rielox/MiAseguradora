@@ -40,9 +40,22 @@ public class PolizaRepository : IPolizaRepository
 
 	/////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////
-	public async Task<PolizaDto> Update(Poliza poliza, PolizaUpdateDto polizaUpdateDto)
+	//public async Task<PolizaDto> Update(Poliza poliza, PolizaUpdateDto polizaUpdateDto)
+	//{
+	//	_mapper.Map(polizaUpdateDto, poliza);
+
+	//	var polizaCode = poliza.UsuarioId + "-" + poliza.Modelo + "-" + poliza.Vehiculo;
+	//	poliza.PolizaCode = polizaCode;
+
+
+	//	if (await SaveAllAsync()) return _mapper.Map<PolizaDto>(poliza);
+
+	//	return null;
+	//}
+	
+	public async Task<PolizaDto> Update(Poliza poliza, PoCoUpdateDto poCoUpdateDto)
 	{
-		_mapper.Map(polizaUpdateDto, poliza);
+		_mapper.Map(poCoUpdateDto, poliza);
 
 		var polizaCode = poliza.UsuarioId + "-" + poliza.Modelo + "-" + poliza.Vehiculo;
 		poliza.PolizaCode = polizaCode;
@@ -86,7 +99,8 @@ public class PolizaRepository : IPolizaRepository
 	/////////////////////////////////////////////////////////////
 	public async Task<IEnumerable<PolizaWithCobsDto>> GetPolizasAsync()
 	{
-		var polizas = await _context.Polizas.ToListAsync();
+		var polizas = await _context.Polizas
+			.Include(p => p.CoberturaList).ToListAsync();
 
 		var polizasDto = _mapper.Map<IEnumerable<PolizaWithCobsDto>>(polizas);
 

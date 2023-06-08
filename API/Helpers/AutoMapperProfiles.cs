@@ -19,8 +19,12 @@ public class AutoMapperProfiles : Profile
 		CreateMap<Poliza, PolizaCreateDto>().ReverseMap();
 		CreateMap<Poliza, PolizaDto>().ReverseMap();
 		CreateMap<Poliza, PolizaUpdateDto>().ReverseMap();
+		CreateMap<Poliza, PoCoUpdateDto>().ReverseMap();
 
 		CreateMap<PoCoCreateDto, PolizaCreateDto>().ReverseMap();
-		CreateMap<Poliza, PolizaWithCobsDto>().ReverseMap();
+		CreateMap<Poliza, PolizaWithCobsDto>()
+			.ForMember(dest => dest.CoberturasIdList, opt => opt.MapFrom(src =>
+				src.CoberturaList.Select(pc => pc.CoberturaId)	))
+			.ReverseMap();
 	}
 }

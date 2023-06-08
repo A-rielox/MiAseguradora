@@ -1,4 +1,5 @@
-﻿using API.Entities;
+﻿using API.DTOs;
+using API.Entities;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -9,11 +10,15 @@ public class PolizaCoberturaRepository : IPolizaCoberturaRepository
 {
 	private readonly DataContext _context;
 	private readonly IMapper _mapper;
+	private readonly ICoberturaRepository _cobsRepo;
 
-	public PolizaCoberturaRepository(DataContext context, IMapper mapper)
+	public PolizaCoberturaRepository(DataContext context,
+									 IMapper mapper,
+									 ICoberturaRepository cobsRepo)
 	{
 		_context = context;
 		_mapper = mapper;
+		_cobsRepo = cobsRepo;
 	}
 
 
@@ -21,9 +26,32 @@ public class PolizaCoberturaRepository : IPolizaCoberturaRepository
 
 	/////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////
-	public void AddPolizaCobertura(PolizaCobertura polizaCobertura)
+	//public void AddPolizaCobertura(PolizaCobertura polizaCobertura)
+	//{
+	//	_context.PolizaCoberturas.Add(polizaCobertura);
+	//}
+
+	public async Task<bool> AddPolizaCobertura(PoCoCreateDto poCoCreateDto, int polizaId)
 	{
-		_context.PolizaCoberturas.Add(polizaCobertura);
+		var cobsList = poCoCreateDto.CoberturasIdsList.ToList();
+
+		foreach (var cobId in cobsList)
+		{
+			var cob = await _cobsRepo.GetCoberturaByIdAsync(cobId);
+			var monto = Convert.ToInt32( cob.Monto + (cob.Monto * 
+							 int.Parse( poCoCreateDto.Vehiculo ) * 0.001) );
+
+			var poco = new PolizaCobertura
+			{
+				PolizaId = polizaId,
+				CoberturaId = cobId,
+				Monto = monto,
+			};
+
+			_context.PolizaCoberturas.Add(poco);
+		}
+
+		return await SaveAllAsync();		
 	}
 
 

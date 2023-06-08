@@ -13,8 +13,11 @@ public interface IPolizaRepository
 
 
 	Task<Poliza> GetPolizaByIdAsync(int id);
-	
-	Task<IEnumerable<PolizaDto>> GetPolizasAsync();
+
+	Task<Poliza> GetPoWithCoByIdAsync(int id);
+
+
+	Task<IEnumerable<PolizaWithCobsDto>> GetPolizasAsync();
 
 
 	Task<bool> SaveAllAsync();

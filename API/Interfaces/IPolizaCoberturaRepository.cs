@@ -1,10 +1,11 @@
-﻿using API.Entities;
+﻿using API.DTOs;
+using API.Entities;
 
 namespace API.Interfaces;
 
 public interface IPolizaCoberturaRepository
 {
-	void AddPolizaCobertura(PolizaCobertura polizaCobertura);
+	Task<bool> AddPolizaCobertura(PoCoCreateDto poCoCreateDto, int polizaId);
 	
 	void DeletePolizaCobertura(PolizaCobertura polizaCobertura);
 

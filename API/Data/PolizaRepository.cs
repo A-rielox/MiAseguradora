@@ -74,11 +74,23 @@ public class PolizaRepository : IPolizaRepository
 
 	/////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////
-	public async Task<IEnumerable<PolizaDto>> GetPolizasAsync()
+	public async Task<Poliza> GetPoWithCoByIdAsync(int id)
 	{
-		var polizas = await _context.Polizas.ToListAsync();
+		return await _context.Polizas
+							 .Include(p => p.CoberturaList)
+							 .FirstOrDefaultAsync(p => p.PolizaId == id);
+	}
 
-		var polizasDto = _mapper.Map<IEnumerable<PolizaDto>>(polizas);
+
+	/////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////
+	public async Task<IEnumerable<PolizaWithCobsDto>> GetPolizasAsync()
+	{
+		var polizas = await _context.Polizas
+									.Include(p => p.CoberturaList)
+									.ToListAsync();
+
+		var polizasDto = _mapper.Map<IEnumerable<PolizaWithCobsDto>>(polizas);
 
 		return polizasDto;
 	}

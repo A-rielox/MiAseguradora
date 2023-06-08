@@ -58,7 +58,8 @@ app.UseHttpsRedirection();
 
 
 // debe ir entre UseRouting y Endpoint, y antes de Authorization y UseAuthentication
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+app.UseCors(builder => builder.AllowAnyHeader()
+		.AllowAnyMethod().AllowAnyOrigin());
 
 
 

@@ -34,6 +34,10 @@ public class AccountController : BaseApiController
 		var user = new Usuario
 		{
 			UserName = registerDto.UserName.ToLower(),
+			City = registerDto.City.ToLower(),
+			Street = registerDto.Street.ToLower(),
+			PhoneNumber = registerDto.PhoneNumber.ToLower(),
+			HouseNumber = registerDto.HouseNumber,
 			PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
 			PasswordSalt = hmac.Key
 		};

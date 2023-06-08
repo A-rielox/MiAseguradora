@@ -86,9 +86,7 @@ public class PolizaRepository : IPolizaRepository
 	/////////////////////////////////////////////////////////////
 	public async Task<IEnumerable<PolizaWithCobsDto>> GetPolizasAsync()
 	{
-		var polizas = await _context.Polizas
-									.Include(p => p.CoberturaList)
-									.ToListAsync();
+		var polizas = await _context.Polizas.ToListAsync();
 
 		var polizasDto = _mapper.Map<IEnumerable<PolizaWithCobsDto>>(polizas);
 

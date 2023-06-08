@@ -13,10 +13,12 @@ public class DataContext : DbContext
 	public DbSet<Poliza> Polizas { get; set; }
     public DbSet<Cobertura> Coberturas { get; set; }
 
+	public DbSet<PolizaCobertura> PolizaCoberturas { get; set; }
 
-    ///////////////////////////////////////////////
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+	///////////////////////////////////////////////
+
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		base.OnModelCreating(modelBuilder);
 
@@ -51,6 +53,21 @@ public class DataContext : DbContext
 			.HasMany(u => u.Polizas)
 			.WithOne(p => p.Usuario)
 			.OnDelete(DeleteBehavior.Restrict);
+
+
+		////////////////////////////
+
+
+		modelBuilder.Entity<PolizaCobertura>()
+			.HasOne(pc => pc.Cobertura)
+			.WithMany(c => c.PolizaList)
+			.OnDelete(DeleteBehavior.Restrict);
+
+		modelBuilder.Entity<PolizaCobertura>()
+			.HasOne(pc => pc.Poliza)
+			.WithMany(p => p.CoberturaList)
+			.OnDelete(DeleteBehavior.Restrict);
+
 
 	}
 }

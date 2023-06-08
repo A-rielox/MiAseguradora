@@ -28,8 +28,8 @@ public static class ApplicationServiceExtensions
 		services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 		services.AddScoped<LogUserActivity>();
-		//services.AddScoped<ILikesRepository, LikesRepository>();
-		//services.AddScoped<IMessageRepository, MessageRepository>();
+
+		services.AddScoped<IPolizaCoberturaRepository, PolizaCoberturaRepository>();
 
 		//services.AddScoped<IUnitOfWork, UnitOfWork>();
 

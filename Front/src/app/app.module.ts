@@ -12,6 +12,11 @@ import { NavComponent } from './nav/nav.component';
 import { PrimeModule } from './_prime/prime/prime.module';
 import { LoginModalComponent } from './nav/login-modal/login-modal.component';
 import { HomeModule } from './home/home.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { CotizarModule } from './cotizar/cotizar.module';
+import { PolizasModule } from './polizas/polizas.module';
+import { ErrorInterceptor } from './_interceptors/error.interceptor';
+import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 
 @NgModule({
    declarations: [AppComponent, NavComponent, LoginModalComponent],
@@ -25,8 +30,14 @@ import { HomeModule } from './home/home.module';
       //
       PrimeModule,
       HomeModule,
+      NotificationsModule,
+      CotizarModule,
+      PolizasModule,
    ],
-   providers: [],
+   providers: [
+      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+      { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+   ],
    bootstrap: [AppComponent],
 })
 export class AppModule {}

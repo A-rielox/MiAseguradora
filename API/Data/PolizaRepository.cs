@@ -100,12 +100,29 @@ public class PolizaRepository : IPolizaRepository
 	public async Task<IEnumerable<PolizaWithCobsDto>> GetPolizasAsync()
 	{
 		var polizas = await _context.Polizas
-			.Include(p => p.CoberturaList).ToListAsync();
+									.Include(p => p.CoberturaList)
+									.ToListAsync();
 
 		var polizasDto = _mapper.Map<IEnumerable<PolizaWithCobsDto>>(polizas);
 
 		return polizasDto;
 	}
+
+
+	/////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////
+	public async Task<IEnumerable<PolizaWithCobsDto>> GetPolizasForUserAsync(int userId)
+	{
+		var polizas = await _context.Polizas
+									.Where(p => p.UsuarioId == userId)
+									.Include(p => p.CoberturaList)
+									.ToListAsync();
+
+		var polizasDto = _mapper.Map<IEnumerable<PolizaWithCobsDto>>(polizas);
+
+		return polizasDto;
+	}
+
 
 
 	/////////////////////////////////////////////////////////////

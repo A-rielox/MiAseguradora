@@ -20,6 +20,8 @@ public interface IPolizaRepository
 
 	Task<IEnumerable<PolizaWithCobsDto>> GetPolizasAsync();
 
+	Task<IEnumerable<PolizaWithCobsDto>> GetPolizasForUserAsync(int userId);
+
 
 	Task<bool> SaveAllAsync();
 }

@@ -12,6 +12,7 @@ import { DialogModule } from 'primeng/dialog';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { DividerModule } from 'primeng/divider';
 
 @NgModule({
    declarations: [],
@@ -27,6 +28,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
       DynamicDialogModule,
       InputTextModule,
       InputNumberModule,
+      DividerModule,
    ],
    exports: [
       StyleClassModule,
@@ -39,6 +41,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
       DynamicDialogModule,
       InputTextModule,
       InputNumberModule,
+      DividerModule,
    ],
 })
 export class PrimeModule {}

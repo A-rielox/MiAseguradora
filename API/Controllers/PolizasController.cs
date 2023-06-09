@@ -131,10 +131,24 @@ public class PolizasController : BaseApiController
 	//	return Ok(polizasDto);
 	//}
 
+	//[HttpGet]
+	//public async Task<ActionResult<IEnumerable<PolizaWithCobsDto>>> GetPolizas()
+	//{
+	//	var polizasDto = await _polizaRepo.GetPolizasAsync();
+
+	//	return Ok(polizasDto);
+	//}
+
+
+	/////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////
+	// GET:  api/Polizas
 	[HttpGet]
 	public async Task<ActionResult<IEnumerable<PolizaWithCobsDto>>> GetPolizas()
 	{
-		var polizasDto = await _polizaRepo.GetPolizasAsync();
+		var usuarioId = User.GetUserId();
+
+		var polizasDto = await _polizaRepo.GetPolizasForUserAsync(usuarioId);
 
 		return Ok(polizasDto);
 	}

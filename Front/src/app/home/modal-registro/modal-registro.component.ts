@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/_services/account.service';
+import { NotificationsService } from 'src/app/notifications/notifications.service';
 
 @Component({
    selector: 'app-modal-registro',
@@ -22,20 +23,13 @@ export class ModalRegistroComponent implements OnInit {
    constructor(
       private accountService: AccountService,
       private router: Router,
-      private fb: FormBuilder
+      private fb: FormBuilder,
+      private notification: NotificationsService
    ) {}
 
    ngOnInit(): void {
       this.initializeForm();
    }
-
-   /*
-         UserName = registerDto.UserName.ToLower(),
-			City = registerDto.City.ToLower(),
-			Street = registerDto.Street.ToLower(),
-			PhoneNumber = registerDto.PhoneNumber.ToLower(),
-			HouseNumber = registerDto.HouseNumber,
-   */
 
    initializeForm() {
       this.registerForm = this.fb.group({
@@ -77,9 +71,15 @@ export class ModalRegistroComponent implements OnInit {
 
       this.accountService.register(this.registerForm.value).subscribe({
          next: (res) => {
-            // this.router.navigateByUrl('/articulos');
+            this.router.navigateByUrl('/cotizar');
 
             this.visibleRegister = false;
+
+            this.notification.addNoti({
+               severity: 'success',
+               summary: 'Hola.',
+               detail: 'Que bueno que te unas.',
+            });
          },
          error: (error) => {
             console.log(error);

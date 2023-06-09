@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { AccountService } from '../_services/account.service';
+import { Router } from '@angular/router';
+import { NotificationsService } from '../notifications/notifications.service';
 
 @Component({
    selector: 'app-nav',
@@ -11,7 +13,11 @@ export class NavComponent implements OnInit {
    items: MenuItem[] = [];
    navItems: MenuItem[] = [];
 
-   constructor(public accountService: AccountService) {}
+   constructor(
+      public accountService: AccountService,
+      private router: Router,
+      private notification: NotificationsService
+   ) {}
 
    ngOnInit(): void {
       this.setItems();
@@ -20,7 +26,13 @@ export class NavComponent implements OnInit {
    logout() {
       this.accountService.logout();
 
-      // this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/');
+
+      this.notification.addNoti({
+         severity: 'success',
+         summary: 'Adios.',
+         detail: 'Nos vemos pronto.',
+      });
    }
 
    setItems() {

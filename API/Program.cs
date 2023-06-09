@@ -96,6 +96,7 @@ try
 
 	await Seed.SeedPolizas(context);
 	await Seed.SeedCoberturas(context);
+	await Seed.SeedPoCo(context);
 }
 catch (Exception ex)
 {

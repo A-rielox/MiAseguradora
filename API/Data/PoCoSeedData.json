@@ -1,0 +1,44 @@
+[
+  {
+    "CoberturaId": 1,
+    "PolizaId": 1,
+    "Monto": 1057000,
+    "Created": "2023-06-08 01:37:17.7840619"
+  },
+  {
+    "CoberturaId": 3,
+    "PolizaId": 1,
+    "Monto": 211400,
+    "Created": "2023-06-08 01:37:17.7903962"
+  },
+  {
+    "CoberturaId": 2,
+    "PolizaId": 2,
+    "Monto": 3020000,
+    "Created": "2023-06-08 00:01:39.5205796"
+  },
+  {
+    "CoberturaId": 1,
+    "PolizaId": 2,
+    "Monto": 1057000,
+    "Created": "2023-06-08 00:01:39.5278195"
+  },
+  {
+    "CoberturaId": 3,
+    "PolizaId": 2,
+    "Monto": 211400,
+    "Created": "2023-06-08 00:01:39.5331358"
+  },
+  {
+    "CoberturaId": 3,
+    "PolizaId": 3,
+    "Monto": 84000,
+    "Created": "2023-06-09 15:03:29.8063438"
+  },
+  {
+    "CoberturaId": 1,
+    "PolizaId": 3,
+    "Monto": 420000,
+    "Created": "2023-06-09 15:03:29.8181521"
+  }
+]

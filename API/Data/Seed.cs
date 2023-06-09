@@ -74,4 +74,24 @@ public class Seed
 		await context.SaveChangesAsync();
 	}
 
+	public static async Task SeedPoCo(DataContext context)
+	{
+		if (await context.PolizaCoberturas.AnyAsync()) return;
+
+		var pocoData = await File.ReadAllTextAsync("Data/PoCoSeedData.json");
+
+		// var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
+		var pocos = JsonConvert.DeserializeObject<List<PolizaCobertura>>(pocoData);// The solution was to change from System.Text.Json to Newtonsoft Json with this line
+
+
+		foreach (var poco in pocos)
+		{
+			context.PolizaCoberturas.Add(poco);
+		}
+
+		await context.SaveChangesAsync();
+	}
+
+
 }

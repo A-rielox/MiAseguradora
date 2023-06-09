@@ -1,19 +1,5 @@
 [
   {
-    "Marca": "mazda",
-    "Vehiculo": 2022,
-    "Modelo": "xd-777",
-    "UsuarioId": 6,
-    "PolizaCode": "6-xd-777-2022"
-  },
-  {
-    "Marca": "chevrolet",
-    "Vehiculo": 2003,
-    "Modelo": "cv-349",
-    "UsuarioId": 8,
-    "PolizaCode": "8-cv-349-2003"
-  },
-  {
     "Marca": "nissan",
     "Vehiculo": 2003,
     "Modelo": "gs-244",
@@ -21,122 +7,17 @@
     "PolizaCode": "1-gs-244-2003"
   },
   {
-    "Marca": "mazda",
-    "Vehiculo": 2003,
-    "Modelo": "gs-244",
-    "UsuarioId": 9,
-    "PolizaCode": "9-gs-244-2003"
-  },
-  {
     "Marca": "chevrolet",
     "Vehiculo": 2018,
     "Modelo": "ups-535",
-    "UsuarioId": 3,
-    "PolizaCode": "3-ups-535-2018"
+    "UsuarioId": 1,
+    "PolizaCode": "1-ups-535-2018"
   },
   {
     "Marca": "volvo",
     "Vehiculo": 2007,
     "Modelo": "rm-234",
-    "UsuarioId": 7,
-    "PolizaCode": "7-rm-234-2007"
-  },
-  {
-    "Marca": "chevrolet",
-    "Vehiculo": 2016,
-    "Modelo": "rm-234",
-    "UsuarioId": 6,
-    "PolizaCode": "6-rm-234-2016"
-  },
-  {
-    "Marca": "chevrolet",
-    "Vehiculo": 2009,
-    "Modelo": "xd-777",
-    "UsuarioId": 9,
-    "PolizaCode": "9-xd-777-2009"
-  },
-  {
-    "Marca": "volvo",
-    "Vehiculo": 2005,
-    "Modelo": "cv-349",
     "UsuarioId": 1,
-    "PolizaCode": "1-cv-349-2005"
-  },
-  {
-    "Marca": "toyota",
-    "Vehiculo": 2016,
-    "Modelo": "xd-777",
-    "UsuarioId": 9,
-    "PolizaCode": "9-xd-777-2016"
-  },
-  {
-    "Marca": "nissan",
-    "Vehiculo": 2002,
-    "Modelo": "cv-349",
-    "UsuarioId": 10,
-    "PolizaCode": "10-cv-349-2002"
-  },
-  {
-    "Marca": "toyota",
-    "Vehiculo": 2003,
-    "Modelo": "cv-349",
-    "UsuarioId": 3,
-    "PolizaCode": "3-cv-349-2003"
-  },
-  {
-    "Marca": "toyota",
-    "Vehiculo": 2002,
-    "Modelo": "rm-234",
-    "UsuarioId": 3,
-    "PolizaCode": "3-rm-234-2002"
-  },
-  {
-    "Marca": "toyota",
-    "Vehiculo": 2012,
-    "Modelo": "rm-234",
-    "UsuarioId": 3,
-    "PolizaCode": "3-rm-234-2012"
-  },
-  {
-    "Marca": "nissan",
-    "Vehiculo": 2000,
-    "Modelo": "ups-535",
-    "UsuarioId": 8,
-    "PolizaCode": "8-ups-535-2000"
-  },
-  {
-    "Marca": "volvo",
-    "Vehiculo": 2005,
-    "Modelo": "rm-234",
-    "UsuarioId": 7,
-    "PolizaCode": "7-rm-234-2005"
-  },
-  {
-    "Marca": "nissan",
-    "Vehiculo": 2023,
-    "Modelo": "ups-535",
-    "UsuarioId": 5,
-    "PolizaCode": "5-ups-535-2023"
-  },
-  {
-    "Marca": "volvo",
-    "Vehiculo": 2020,
-    "Modelo": "rm-234",
-    "UsuarioId": 8,
-    "PolizaCode": "8-rm-234-2020"
-  },
-  {
-    "Marca": "mazda",
-    "Vehiculo": 2004,
-    "Modelo": "gs-244",
-    "UsuarioId": 2,
-    "PolizaCode": "2-gs-244-2004"
-  },
-  {
-    "Marca": "nissan",
-    "Vehiculo": 2001,
-    "Modelo": "xd-777",
-    "UsuarioId": 4,
-    "PolizaCode": "4-xd-777-2001"
+    "PolizaCode": "1-rm-234-2007"
   }
 ]

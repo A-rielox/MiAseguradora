@@ -26,7 +26,7 @@ export class CoberturasComponent implements OnInit, OnChanges {
    @Input() vehiculo: number = 1;
    @Input() poliza: PolizaRegistro = {} as PolizaRegistro;
 
-   selectedProducts: number[] = [2, 3];
+   selectedProducts: number[] = [];
    catalogoAjustado: Cobertura[] = [];
 
    constructor(
@@ -48,7 +48,17 @@ export class CoberturasComponent implements OnInit, OnChanges {
          coberturasIdsList: this.selectedProducts,
       };
 
-      console.log(poco, 'poco');
+      if (poco.coberturasIdsList.length < 1) {
+         this.notification.addNoti({
+            severity: 'error',
+            summary: 'Lo siento.',
+            detail: 'Debes incluir coberturas.',
+         });
+
+         return;
+      }
+
+      // console.log(poco, 'poco');
       // {Marca: 'marca', Vehiculo: 2000, Modelo: 'modelo', coberturasIdsList:  [4, 1]}
 
       this.polizasService.postPoCo(poco).subscribe({
@@ -62,15 +72,6 @@ export class CoberturasComponent implements OnInit, OnChanges {
             });
          },
       });
-
-      /* 
-      {
-         "marca": "marca",
-         "vehiculo": "2020",
-         "modelo": "modelo",
-         "coberturasIdsList": [ 2, 1, 3 ]
-      }
-      */
    }
 
    // print() {

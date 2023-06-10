@@ -17,6 +17,8 @@ import { CotizarModule } from './cotizar/cotizar.module';
 import { PolizasModule } from './polizas/polizas.module';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
+import { EditPocoModule } from './edit-poco/edit-poco.module';
+import { CoberturasModule } from './coberturas/coberturas.module';
 
 @NgModule({
    declarations: [AppComponent, NavComponent, LoginModalComponent],
@@ -33,6 +35,8 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
       NotificationsModule,
       CotizarModule,
       PolizasModule,
+      EditPocoModule,
+      CoberturasModule,
    ],
    providers: [
       { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

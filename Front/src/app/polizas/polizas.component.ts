@@ -3,21 +3,40 @@ import { PolizasService } from '../_services/polizas.service';
 import { Poliza } from '../_models/Poliza';
 import { Cobertura } from '../_models/Cobertura';
 import { PolizaPlus } from '../_models/PolizaPlus';
+import { NavigationExtras, Router } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
+import { NotificationsService } from '../notifications/notifications.service';
 
 @Component({
    selector: 'app-polizas',
    templateUrl: './polizas.component.html',
    styleUrls: ['./polizas.component.css'],
+   providers: [ConfirmationService],
 })
 export class PolizasComponent implements OnInit {
    polizas: Poliza[] = [];
    coberturasCatalogoList: Cobertura[] = [];
    myPolizas: PolizaPlus[] = [];
 
-   constructor(private polizasService: PolizasService) {}
+   constructor(
+      private polizasService: PolizasService,
+      private router: Router,
+      private confirmationService: ConfirmationService,
+      private notification: NotificationsService
+   ) {}
 
    ngOnInit(): void {
       this.getCoberturasCatalogo();
+   }
+
+   editPoco(poliza: Poliza) {
+      const navigationExtras: NavigationExtras = {
+         state: { Poco: poliza },
+      };
+
+      console.log(poliza);
+
+      this.router.navigateByUrl('/edit-poco', navigationExtras);
    }
 
    getUserPolizas() {
@@ -71,6 +90,35 @@ export class PolizasComponent implements OnInit {
       // // ( cob.Monto + (cob.Monto * int.Parse( poCoCreateDto.Vehiculo ) * 0.001) )
 
       return polizas;
+   }
+
+   // pop-up de confirmar borrado
+   confirm(event: Event, poliza: Poliza) {
+      if (!event.target) return;
+
+      this.confirmationService.confirm({
+         target: event.target as EventTarget,
+         message: 'Confirmas que quieres borrar la poliza?',
+         acceptLabel: 'Si',
+         rejectLabel: 'No',
+         icon: 'pi pi-exclamation-triangle',
+         accept: () => {
+            if (!this.myPolizas) return;
+
+            this.polizasService.deletePoCo(poliza.polizaId).subscribe({
+               next: (_) => {
+                  this.notification.addNoti({
+                     severity: 'success',
+                     summary: 'Listo',
+                     detail: 'Poliza borrada',
+                  });
+
+                  this.getUserPolizas();
+               },
+            });
+         },
+         reject: () => {},
+      });
    }
 
    getMonto(monto: number) {

@@ -32,6 +32,21 @@
                   [min]="1980"
                   [max]="2023"
                ></p-inputNumber>
+
+               <ng-container
+                  *ngIf="
+                     polizaForm.controls['vehiculo'].touched &&
+                     polizaForm.controls['vehiculo'].errors &&
+                     polizaForm.controls['vehiculo'].dirty
+                  "
+               >
+                  <small
+                     *ngIf="polizaForm.controls['vehiculo'].errors?.['required']"
+                     class="p-error block"
+                  >
+                     Por favor ingrese un año</small
+                  ></ng-container
+               >
             </div>
 
             <!--              MODELO              -->

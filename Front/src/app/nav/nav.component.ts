@@ -40,7 +40,7 @@ export class NavComponent implements OnInit {
          {
             label: 'Editar Perfil',
             icon: 'pi pi-cog',
-            routerLink: ['/members/edit'],
+            routerLink: ['/'],
          },
          {
             label: 'Salir',

@@ -55,12 +55,12 @@
                <li>
                   <a
                      [class]="aClass()"
-                     routerLink="/members"
+                     routerLink="/cobertura"
                      routerLinkActive="active"
                      [routerLinkActiveOptions]="{ exact: true }"
                   >
-                     <i class="pi pi-users mr-2"></i>
-                     <span>Lista Usuarios</span>
+                     <i class="pi pi-plus mr-2"></i>
+                     <span>Administrar Coberturas</span>
                   </a>
                </li>
             </ng-container>
@@ -92,11 +92,7 @@
             <!-- menu en pantalla chica -->
             <ng-container *ngIf="accountService.currentUser$ | async">
                <li class="block lg:hidden">
-                  <a
-                     [class]="aClass()"
-                     routerLink="/members/edit"
-                     routerLinkActive="active"
-                  >
+                  <a [class]="aClass()" routerLink="" routerLinkActive="active">
                      <i class="pi pi-cog mr-2"></i>
                      <span class="font-medium">Editar Perfil</span>
                   </a>

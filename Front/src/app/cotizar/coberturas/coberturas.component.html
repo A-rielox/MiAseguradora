@@ -2,8 +2,7 @@
    <div class="font-medium text-3xl text-900 mb-3">Selección de coberturas</div>
 
    <div class="text-500 mb-5">
-      Selecciona todas las coberturas que quieras tomar y revisa tu pago
-      mensual.
+      Selecciona todas las coberturas que quieras tomar y revisa los montos.
    </div>
 
    <!-- [value]="catalogos" -->
@@ -40,8 +39,8 @@
       <button
          pButton
          label="Rechazar"
-         icon="pi pi-check"
-         class="col-12 md:col-5"
+         icon="pi pi-undo"
+         class="col-12 md:col-5 p-button-warning"
          type="text"
          (click)="reject()"
       ></button>

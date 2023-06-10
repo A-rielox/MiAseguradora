@@ -1,1 +1,91 @@
-<p>edit-poco works!</p>
+<div class="px-4 py-8 md:px-6 lg:px-8">
+   <div class="flex flex-wrap" *ngIf="!polizaSelected">
+      <!--           LEFT         -->
+      <div
+         class="w-full lg:w-6 p-4 lg:p-7"
+         style="background-color: rgba(255, 255, 255, 0.7)"
+      >
+         <app-left-text></app-left-text>
+      </div>
+
+      <!--           RIGHT         -->
+      <div class="w-full lg:w-6 p-4 lg:p-7 surface-card">
+         <div class="text-900 text-2xl font-medium mb-6">Vehículo</div>
+
+         <!-- (ngSubmit)="polizaForm.valid && cotizarPoliza()" -->
+         <form
+            [formGroup]="polizaForm"
+            (ngSubmit)="cotizarPoliza()"
+            autocomplete="off"
+         >
+            <!--              MARCA              -->
+            <app-text-input
+               [formControl]="$any(polizaForm.controls['marca'])"
+               [label]="'Marca'"
+            ></app-text-input>
+
+            <!--              VEHICULO              -->
+            <div class="field col-12 w-full p-0">
+               <label class="block text-900 font-medium mb-1">Año</label>
+               <p-inputNumber
+                  [formControl]="$any(polizaForm.controls['vehiculo'])"
+                  [min]="1980"
+                  [max]="2023"
+               ></p-inputNumber>
+
+               <ng-container
+                  *ngIf="
+                     polizaForm.controls['vehiculo'].touched &&
+                     polizaForm.controls['vehiculo'].errors &&
+                     polizaForm.controls['vehiculo'].dirty
+                  "
+               >
+                  <small
+                     *ngIf="polizaForm.controls['vehiculo'].errors?.['required']"
+                     class="p-error block"
+                  >
+                     Por favor ingrese un año</small
+                  ></ng-container
+               >
+            </div>
+
+            <!--              MODELO              -->
+            <app-text-input
+               [formControl]="$any(polizaForm.controls['modelo'])"
+               [label]="'Modelo'"
+            ></app-text-input>
+
+            <!-- <div class="grid mt-5 justify-content-around"> -->
+            <span class="p-buttonset flex justify-content-center">
+               <button
+                  pButton
+                  label="Regresar"
+                  icon="pi pi-undo"
+                  type="text"
+                  class="p-button-warning"
+                  routerLink="/polizas"
+               ></button>
+
+               <button
+                  pButton
+                  label="Coberturas"
+                  icon="pi pi-check"
+                  type="submit"
+                  [disabled]="polizaForm.invalid"
+               ></button>
+            </span>
+         </form>
+      </div>
+   </div>
+   <!--           COBERTURAS         -->
+   <!-- class="w-full p-4 lg:p-7" -->
+   <div class="w-full" style="background-color: rgba(234, 236, 253, 0.7)">
+      <app-coberturas
+         [vehiculo]="polizaForm.value['vehiculo']"
+         [catalogos]="coberturasCatalogoList"
+         [polizaSelected]="polizaSelected"
+         [poliza]="polizaForm.value"
+         (rejectPoliza)="rejectPoliza()"
+      ></app-coberturas>
+   </div>
+</div>

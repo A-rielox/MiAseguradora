@@ -14,6 +14,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DividerModule } from 'primeng/divider';
 import { TableModule } from 'primeng/table';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
    declarations: [],
@@ -31,6 +33,8 @@ import { TableModule } from 'primeng/table';
       InputNumberModule,
       DividerModule,
       TableModule,
+      ConfirmPopupModule,
+      TooltipModule,
    ],
    exports: [
       StyleClassModule,
@@ -45,6 +49,8 @@ import { TableModule } from 'primeng/table';
       InputNumberModule,
       DividerModule,
       TableModule,
+      ConfirmPopupModule,
+      TooltipModule,
    ],
 })
 export class PrimeModule {}
